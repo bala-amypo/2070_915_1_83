@@ -1,14 +1,58 @@
+package com.example.demo.service.impl;
+
+import com.example.demo.model.Vendor;
+import com.example.demo.repository.VendorRepository;
+import com.example.demo.service.VendorService;
+
+import java.util.List;
+
 public class VendorServiceImpl implements VendorService {
 
-    private final VendorRepository repo;
+    private final VendorRepository vendorRepository;
 
-    public VendorServiceImpl(VendorRepository repo) {
-        this.repo = repo;
+    public VendorServiceImpl(VendorRepository vendorRepository) {
+        this.vendorRepository = vendorRepository;
     }
 
-    public Vendor createVendor(Vendor v) {
-        if (repo.existsByName(v.getName()))
+    @Override
+    public Vendor createVendor(Vendor vendor) {
+        if (vendorRepository.existsByName(vendor.getName())) {
             throw new IllegalArgumentException("unique");
-        return repo.save(v);
+        }
+        vendor.setActive(true);
+        return vendorRepository.save(vendor);
+    }
+
+    @Override
+    public Vendor updateVendor(Long id, Vendor vendor) {
+        Vendor existing = getVendorById(id);
+
+        if (!existing.getName().equals(vendor.getName()) &&
+                vendorRepository.existsByName(vendor.getName())) {
+            throw new IllegalArgumentException("unique");
+        }
+
+        existing.setName(vendor.getName());
+        existing.setContactEmail(vendor.getContactEmail());
+        existing.setContactPhone(vendor.getContactPhone());
+        return vendorRepository.save(existing);
+    }
+
+    @Override
+    public Vendor getVendorById(Long id) {
+        return vendorRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("not found"));
+    }
+
+    @Override
+    public List<Vendor> getAllVendors() {
+        return vendorRepository.findAll();
+    }
+
+    @Override
+    public void deactivateVendor(Long id) {
+        Vendor vendor = getVendorById(id);
+        vendor.setActive(false);
+        vendorRepository.save(vendor);
     }
 }
