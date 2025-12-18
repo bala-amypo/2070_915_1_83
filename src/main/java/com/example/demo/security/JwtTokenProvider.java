@@ -1,0 +1,10 @@
+public class JwtTokenProvider {
+
+    private final String secret;
+    private final long validityInMs;
+
+    public JwtTokenProvider(String secret, long validityInMs) {
+        this.secret = secret;
+        this.validityInMs = validityInMs;
+    }
+}
