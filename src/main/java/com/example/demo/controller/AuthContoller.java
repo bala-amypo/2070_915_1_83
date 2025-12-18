@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
 @Tag(name = "Authentication")
-public class AuthController {
+public class AuthController{
 
     private final UserService userService;
 
