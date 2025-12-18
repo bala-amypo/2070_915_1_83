@@ -1,11 +1,75 @@
+package com.example.demo.model;
+
+import jakarta.persistence.*;
+
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = "requirementName"))
+@Table(
+    name = "sla_requirements",
+    uniqueConstraints = @UniqueConstraint(columnNames = "requirementName")
+)
 public class SLARequirement {
-    @Id @GeneratedValue
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, unique = true)
     private String requirementName;
+
     private String description;
+
     private Integer maxDeliveryDays;
+
     private Double minQualityScore;
+
     private Boolean active = true;
+
+    // getters and setters
+    public Long getId() {
+        return id;
+    }
+
+    public String getRequirementName() {
+        return requirementName;
+    }
+
+    public void setRequirementName(String requirementName) {
+        this.requirementName = requirementName;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Integer getMaxDeliveryDays() {
+        return maxDeliveryDays;
+    }
+
+    public Double getMinQualityScore() {
+        return minQualityScore;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setMaxDeliveryDays(Integer maxDeliveryDays) {
+        this.maxDeliveryDays = maxDeliveryDays;
+    }
+
+    public void setMinQualityScore(Double minQualityScore) {
+        this.minQualityScore = minQualityScore;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
 }
