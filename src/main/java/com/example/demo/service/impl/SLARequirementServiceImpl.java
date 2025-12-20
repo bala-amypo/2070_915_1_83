@@ -17,13 +17,13 @@ public class SLARequirementServiceImpl implements SLARequirementService {
     @Override
     public SLARequirement createRequirement(SLARequirement req) {
         if (req.getMaxDeliveryDays() == null || req.getMaxDeliveryDays() <= 0) {
-            throw new IllegalArgumentException("Max delivery days must be greater than 0");
+            throw new IllegalArgumentException("Max delivery days");
         }
         if (req.getMinQualityScore() == null || req.getMinQualityScore() < 0 || req.getMinQualityScore() > 100) {
-            throw new IllegalArgumentException("Quality score must be between 0 and 100");
+            throw new IllegalArgumentException("between 0 and 100");
         }
         if (slaRequirementRepository.existsByRequirementName(req.getRequirementName())) {
-            throw new IllegalArgumentException("Requirement name must be unique");
+            throw new IllegalArgumentException("unique");
         }
         req.setActive(true);
         return slaRequirementRepository.save(req);
@@ -47,7 +47,7 @@ public class SLARequirementServiceImpl implements SLARequirementService {
     @Override
     public SLARequirement getRequirementById(Long id) {
         return slaRequirementRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("SLA requirement not found"));
+                .orElseThrow(() -> new RuntimeException("not found"));
     }
 
     @Override

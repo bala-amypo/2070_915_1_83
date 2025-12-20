@@ -6,11 +6,8 @@ public class AuthResponse {
     private String email;
     private String role;
 
-    // Default constructor
-    public AuthResponse() {
-    }
+    public AuthResponse() {}
 
-    // Parameterized constructor required by UserServiceImpl
     public AuthResponse(String token, Long userId, String email, String role) {
         this.token = token;
         this.userId = userId;
@@ -18,7 +15,7 @@ public class AuthResponse {
         this.role = role;
     }
 
-    // Getters and Setters
+    // Getters and Setters...
     public String getToken() { return token; }
     public void setToken(String token) { this.token = token; }
     public Long getUserId() { return userId; }
