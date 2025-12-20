@@ -8,18 +8,18 @@ import org.hibernate.annotations.CreationTimestamp;
 public class VendorPerformanceScore {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; [cite_start]// [cite: 89]
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "vendor_id")
-    private Vendor vendor; [cite_start]// [cite: 92]
+    private Vendor vendor;
 
-    private Double onTimePercentage; [cite_start]// [cite: 93, 98]
-    private Double qualityCompliancePercentage; [cite_start]// [cite: 94, 98]
-    private Double overallScore; [cite_start]// [cite: 95, 99]
+    private Double onTimePercentage;
+    private Double qualityCompliancePercentage;
+    private Double overallScore;
 
     @CreationTimestamp
-    private Timestamp calculatedAt; [cite_start]// [cite: 96]
+    private Timestamp calculatedAt;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
