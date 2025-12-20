@@ -8,32 +8,34 @@ import java.util.List;
 
 @Service
 public class VendorPerformanceScoreServiceImpl implements VendorPerformanceScoreService {
-    private final VendorPerformanceScoreRepository vendorPerformanceScoreRepository;
-    private final DeliveryEvaluationRepository deliveryEvaluationRepository;
-    private final VendorRepository vendorRepository;
+    private final VendorPerformanceScoreRepository scoreRepo;
+    private final DeliveryEvaluationRepository evaluationRepo;
+    private final VendorRepository vendorRepo;
 
-    public VendorPerformanceScoreServiceImpl(VendorPerformanceScoreRepository vendorPerformanceScoreRepository,
-                                             DeliveryEvaluationRepository deliveryEvaluationRepository,
-                                             VendorRepository vendorRepository) {
-        this.vendorPerformanceScoreRepository = vendorPerformanceScoreRepository; [cite_start]// [cite: 297]
-        this.deliveryEvaluationRepository = deliveryEvaluationRepository;
-        this.vendorRepository = vendorRepository;
+    public VendorPerformanceScoreServiceImpl(VendorPerformanceScoreRepository scoreRepo, 
+                                            DeliveryEvaluationRepository evaluationRepo, 
+                                            VendorRepository vendorRepo) {
+        this.scoreRepo = scoreRepo;
+        this.evaluationRepo = evaluationRepo;
+        this.vendorRepo = vendorRepo;
     }
 
     @Override
     public VendorPerformanceScore calculateScore(Long vendorId) {
-        Vendor vendor = vendorRepository.findById(vendorId)
-                .orElseThrow(() -> new RuntimeException("vendor not found")); [cite_start]// [cite: 300]
+        Vendor vendor = vendorRepo.findById(vendorId)
+                .orElseThrow(() -> new RuntimeException("vendor not found"));
 
-        List<DeliveryEvaluation> evaluations = deliveryEvaluationRepository.findByVendorId(vendorId); [cite_start]// [cite: 302]
-        if (evaluations.isEmpty()) return null;
+        List<DeliveryEvaluation> evaluations = evaluationRepo.findByVendorId(vendorId);
+        if (evaluations.isEmpty()) {
+            throw new IllegalArgumentException("No evaluations found");
+        }
 
         long onTimeCount = evaluations.stream().filter(DeliveryEvaluation::getMeetsDeliveryTarget).count();
         long qualityCount = evaluations.stream().filter(DeliveryEvaluation::getMeetsQualityTarget).count();
 
-        double onTimePercentage = (double) onTimeCount / evaluations.size() * 100; [cite_start]// [cite: 304]
-        double qualityPercentage = (double) qualityCount / evaluations.size() * 100; [cite_start]// [cite: 305]
-        double overallScore = (onTimePercentage * 0.4) + (qualityPercentage * 0.6); [cite_start]// [cite: 306]
+        double onTimePercentage = (double) onTimeCount / evaluations.size() * 100;
+        double qualityPercentage = (double) qualityCount / evaluations.size() * 100;
+        double overallScore = (onTimePercentage + qualityPercentage) / 2;
 
         VendorPerformanceScore score = new VendorPerformanceScore();
         score.setVendor(vendor);
@@ -41,17 +43,17 @@ public class VendorPerformanceScoreServiceImpl implements VendorPerformanceScore
         score.setQualityCompliancePercentage(qualityPercentage);
         score.setOverallScore(overallScore);
 
-        return vendorPerformanceScoreRepository.save(score); [cite_start]// [cite: 307]
+        return scoreRepo.save(score);
     }
 
     @Override
     public VendorPerformanceScore getLatestScore(Long vendorId) {
-        List<VendorPerformanceScore> scores = vendorPerformanceScoreRepository.findByVendorIdOrderByCalculatedAtDesc(vendorId);
-        return scores.isEmpty() ? null : scores.get(0); [cite_start]// [cite: 309]
+        List<VendorPerformanceScore> scores = scoreRepo.findByVendorIdOrderByCalculatedAtDesc(vendorId);
+        return scores.isEmpty() ? null : scores.get(0);
     }
 
     @Override
     public List<VendorPerformanceScore> getScoresForVendor(Long vendorId) {
-        return vendorPerformanceScoreRepository.findByVendorIdOrderByCalculatedAtDesc(vendorId); [cite_start]// [cite: 311]
+        return scoreRepo.findByVendorIdOrderByCalculatedAtDesc(vendorId);
     }
 }
