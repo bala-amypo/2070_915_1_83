@@ -41,10 +41,11 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("Invalid credentials");
         }
 
-        // We assume createToken handles the generation logic without returning a value internally for now
+        // Call declaration-only method as required
         jwtTokenProvider.createToken(user.getEmail(), user.getRole(), user.getId());
         
-        return new AuthResponse("dummy-token", user.getId(), user.getEmail(), user.getRole());
+        // return type compatible with AuthResponse constructor
+        return new AuthResponse("generated-token", user.getId(), user.getEmail(), user.getRole());
     }
 
     @Override

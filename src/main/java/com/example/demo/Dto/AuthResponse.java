@@ -1,10 +1,22 @@
 package com.example.demo.dto;
 
 public class AuthResponse {
-    private String token; // [cite: 139]
-    private Long userId; // [cite: 141]
-    private String email; // [cite: 142]
-    private String role; // [cite: 144]
+    private String token;
+    private Long userId;
+    private String email;
+    private String role;
+
+    // Default constructor
+    public AuthResponse() {
+    }
+
+    // Parameterized constructor required by UserServiceImpl
+    public AuthResponse(String token, Long userId, String email, String role) {
+        this.token = token;
+        this.userId = userId;
+        this.email = email;
+        this.role = role;
+    }
 
     // Getters and Setters
     public String getToken() { return token; }
