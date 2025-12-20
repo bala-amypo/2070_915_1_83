@@ -21,6 +21,17 @@ public class VendorPerformanceScore {
     @CreationTimestamp
     private Timestamp calculatedAt;
 
+    // No-args constructor for JPA
+    public VendorPerformanceScore() {}
+
+    // Parameterized constructor required by test cases
+    public VendorPerformanceScore(Vendor vendor, Double onTimePercentage, Double qualityCompliancePercentage, Double overallScore) {
+        this.vendor = vendor;
+        this.onTimePercentage = onTimePercentage;
+        this.qualityCompliancePercentage = qualityCompliancePercentage;
+        this.overallScore = overallScore;
+    }
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public Vendor getVendor() { return vendor; }
