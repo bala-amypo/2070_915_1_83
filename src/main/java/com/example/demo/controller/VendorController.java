@@ -6,36 +6,31 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/vendors")
+@RequestMapping("/api/vendors") // [cite: 362]
 public class VendorController {
     private final VendorService vendorService;
 
     public VendorController(VendorService vendorService) {
-        this.vendorService = vendorService;
+        this.vendorService = vendorService; // [cite: 363]
     }
 
-    @PostMapping
-    public Vendor create(@RequestBody Vendor vendor) {
+    @PostMapping // [cite: 365]
+    public Vendor createVendor(@RequestBody Vendor vendor) {
         return vendorService.createVendor(vendor);
     }
 
-    @PutMapping("/{id}")
-    public Vendor update(@PathVariable Long id, @RequestBody Vendor vendor) {
-        return vendorService.updateVendor(id, vendor);
-    }
-
-    @GetMapping("/{id}")
-    public Vendor get(@PathVariable Long id) {
+    @GetMapping("/{id}") // [cite: 367]
+    public Vendor getVendorById(@PathVariable Long id) {
         return vendorService.getVendorById(id);
     }
 
-    @GetMapping
-    public List<Vendor> list() {
+    @GetMapping // [cite: 368]
+    public List<Vendor> getAllVendors() {
         return vendorService.getAllVendors();
     }
 
-    @PutMapping("/{id}/deactivate")
-    public void deactivate(@PathVariable Long id) {
+    @PutMapping("/{id}/deactivate") // [cite: 369]
+    public void deactivateVendor(@PathVariable Long id) {
         vendorService.deactivateVendor(id);
     }
 }

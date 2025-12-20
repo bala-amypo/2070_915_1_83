@@ -1,22 +1,10 @@
 package com.example.demo.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class SecurityConfig {
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    public void filterChain() {
-        // Function declaration for security filter rules
-    }
-
-    public void configureStatelessSession() {
-        // Function declaration for session policy
-    }
+    public void passwordEncoder() {} // [cite: 418]
+    public void filterChain() {} // [cite: 419]
+    public void configureStatelessSession() {} // [cite: 423]
 }
