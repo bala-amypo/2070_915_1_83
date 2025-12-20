@@ -1,18 +1,29 @@
 package com.example.demo.security;
 
+import io.jsonwebtoken.Claims;
 import org.springframework.stereotype.Component;
 
 @Component
 public class JwtTokenProvider {
-    public void createToken(String email, String role, Long userId) {
-        // Declaration only
+    private String secret;
+    private long validityInMs;
+
+    public JwtTokenProvider() {} // Default for Spring
+
+    public JwtTokenProvider(String secret, long validityInMs) {
+        this.secret = secret;
+        this.validityInMs = validityInMs;
     }
 
-    public void getClaims(String token) {
-        // Declaration only
+    public String createToken(String email, String role, Long userId) {
+        return ""; // Implementation logic
     }
 
-    public void validateToken(String token) {
-        // Declaration only
+    public Claims getClaims(String token) {
+        return null; // Implementation logic
+    }
+
+    public boolean validateToken(String token) {
+        return true; 
     }
 }
