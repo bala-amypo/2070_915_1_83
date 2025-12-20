@@ -3,11 +3,11 @@ package com.example.demo.service.impl;
 import com.example.demo.model.Vendor;
 import com.example.demo.repository.VendorRepository;
 import com.example.demo.service.VendorService;
-
+import org.springframework.stereotype.Service;
 import java.util.List;
 
+@Service
 public class VendorServiceImpl implements VendorService {
-
     private final VendorRepository vendorRepository;
 
     public VendorServiceImpl(VendorRepository vendorRepository) {
@@ -17,36 +17,16 @@ public class VendorServiceImpl implements VendorService {
     @Override
     public Vendor createVendor(Vendor vendor) {
         if (vendorRepository.existsByName(vendor.getName())) {
-            throw new IllegalArgumentException("unique");
+            throw new IllegalArgumentException("Vendor name must be unique"); // [cite: 238]
         }
         vendor.setActive(true);
         return vendorRepository.save(vendor);
     }
 
     @Override
-    public Vendor updateVendor(Long id, Vendor vendor) {
-        Vendor existing = getVendorById(id);
-
-        if (!existing.getName().equals(vendor.getName()) &&
-                vendorRepository.existsByName(vendor.getName())) {
-            throw new IllegalArgumentException("unique");
-        }
-
-        existing.setName(vendor.getName());
-        existing.setContactEmail(vendor.getContactEmail());
-        existing.setContactPhone(vendor.getContactPhone());
-        return vendorRepository.save(existing);
-    }
-
-    @Override
     public Vendor getVendorById(Long id) {
         return vendorRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("not found"));
-    }
-
-    @Override
-    public List<Vendor> getAllVendors() {
-        return vendorRepository.findAll();
+            .orElseThrow(() -> new RuntimeException("Vendor not found")); // [cite: 242]
     }
 
     @Override
@@ -54,5 +34,19 @@ public class VendorServiceImpl implements VendorService {
         Vendor vendor = getVendorById(id);
         vendor.setActive(false);
         vendorRepository.save(vendor);
+    }
+
+    @Override
+    public Vendor updateVendor(Long id, Vendor vendor) {
+        Vendor existing = getVendorById(id);
+        existing.setName(vendor.getName());
+        existing.setContactEmail(vendor.getContactEmail());
+        existing.setContactPhone(vendor.getContactPhone());
+        return vendorRepository.save(existing);
+    }
+
+    @Override
+    public List<Vendor> getAllVendors() {
+        return vendorRepository.findAll();
     }
 }
