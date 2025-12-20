@@ -11,29 +11,27 @@ public class VendorServiceImpl implements VendorService {
     private final VendorRepository vendorRepository;
 
     public VendorServiceImpl(VendorRepository vendorRepository) {
-        this.vendorRepository = vendorRepository;
+        this.vendorRepository = vendorRepository; [cite_start]// [cite: 235]
     }
 
     @Override
     public Vendor createVendor(Vendor vendor) {
         if (vendorRepository.existsByName(vendor.getName())) {
-            throw new IllegalArgumentException("Vendor name must be unique"); // [cite: 238]
+            throw new IllegalArgumentException("Vendor name must be unique"); [cite_start]// [cite: 238]
         }
-        vendor.setActive(true);
+        vendor.setActive(true); [cite_start]// [cite: 239]
         return vendorRepository.save(vendor);
     }
 
     @Override
     public Vendor getVendorById(Long id) {
         return vendorRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Vendor not found")); // [cite: 242]
+                .orElseThrow(() -> new RuntimeException("vendor not found")); [cite_start]// [cite: 242]
     }
 
     @Override
-    public void deactivateVendor(Long id) {
-        Vendor vendor = getVendorById(id);
-        vendor.setActive(false);
-        vendorRepository.save(vendor);
+    public List<Vendor> getAllVendors() {
+        return vendorRepository.findAll();
     }
 
     @Override
@@ -46,7 +44,9 @@ public class VendorServiceImpl implements VendorService {
     }
 
     @Override
-    public List<Vendor> getAllVendors() {
-        return vendorRepository.findAll();
+    public void deactivateVendor(Long id) {
+        Vendor vendor = getVendorById(id);
+        vendor.setActive(false); [cite_start]// [cite: 245]
+        vendorRepository.save(vendor);
     }
 }

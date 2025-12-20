@@ -8,33 +8,47 @@ import java.util.List;
 
 @Service
 public class VendorTierServiceImpl implements VendorTierService {
-    private final VendorTierRepository tierRepo;
+    private final VendorTierRepository vendorTierRepository;
 
-    public VendorTierServiceImpl(VendorTierRepository tierRepo) {
-        this.tierRepo = tierRepo; // [cite: 320]
+    public VendorTierServiceImpl(VendorTierRepository vendorTierRepository) {
+        this.vendorTierRepository = vendorTierRepository; [cite_start]// [cite: 320]
     }
 
     @Override
     public VendorTier createTier(VendorTier tier) {
         if (tier.getMinScoreThreshold() < 0 || tier.getMinScoreThreshold() > 100) {
-            throw new IllegalArgumentException("Threshold must be 0-100"); // [cite: 322, 166]
+            throw new IllegalArgumentException("0-100"); [cite_start]// [cite: 322]
         }
-        if (tierRepo.existsByTierName(tier.getTierName())) {
-            throw new IllegalArgumentException("Tier name must be unique"); // [cite: 323, 116]
+        if (vendorTierRepository.existsByTierName(tier.getTierName())) {
+            throw new IllegalArgumentException("unique tier name"); [cite_start]// [cite: 323]
         }
-        return tierRepo.save(tier);
+        return vendorTierRepository.save(tier);
+    }
+
+    @Override
+    public VendorTier updateTier(Long id, VendorTier tier) {
+        VendorTier existing = getTierById(id);
+        existing.setTierName(tier.getTierName());
+        existing.setMinScoreThreshold(tier.getMinScoreThreshold());
+        existing.setDescription(tier.getDescription());
+        return vendorTierRepository.save(existing);
     }
 
     @Override
     public VendorTier getTierById(Long id) {
-        return tierRepo.findById(id)
-            .orElseThrow(() -> new RuntimeException("Tier not found")); // [cite: 326]
+        return vendorTierRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("tier not found")); [cite_start]// [cite: 326]
+    }
+
+    @Override
+    public List<VendorTier> getAllTiers() {
+        return vendorTierRepository.findAll();
     }
 
     @Override
     public void deactivateTier(Long id) {
         VendorTier tier = getTierById(id);
-        tier.setActive(false);
-        tierRepo.save(tier); // [cite: 325]
+        tier.setActive(false); [cite_start]// [cite: 325]
+        vendorTierRepository.save(tier);
     }
 }

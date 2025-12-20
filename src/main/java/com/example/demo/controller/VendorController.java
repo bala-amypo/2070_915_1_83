@@ -2,13 +2,11 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Vendor;
 import com.example.demo.service.VendorService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/vendors")
-@Tag(name = "Vendor Management")
+[cite_start]@RequestMapping("/api/vendors") // [cite: 362]
 public class VendorController {
     private final VendorService vendorService;
 
@@ -16,23 +14,28 @@ public class VendorController {
         this.vendorService = vendorService;
     }
 
-    @PostMapping
+    [cite_start]@PostMapping // [cite: 365]
     public Vendor create(@RequestBody Vendor vendor) {
         return vendorService.createVendor(vendor);
     }
 
-    @GetMapping("/{id}")
+    [cite_start]@PutMapping("/{id}") // [cite: 366]
+    public Vendor update(@PathVariable Long id, @RequestBody Vendor vendor) {
+        return vendorService.updateVendor(id, vendor);
+    }
+
+    [cite_start]@GetMapping("/{id}") // [cite: 367]
     public Vendor get(@PathVariable Long id) {
         return vendorService.getVendorById(id);
     }
 
-    @PutMapping("/{id}/deactivate")
-    public void deactivate(@PathVariable Long id) {
-        vendorService.deactivateVendor(id);
-    }
-
-    @GetMapping
+    [cite_start]@GetMapping // [cite: 368]
     public List<Vendor> list() {
         return vendorService.getAllVendors();
+    }
+
+    [cite_start]@PutMapping("/{id}/deactivate") // [cite: 369]
+    public void deactivate(@PathVariable Long id) {
+        vendorService.deactivateVendor(id);
     }
 }
