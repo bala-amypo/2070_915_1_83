@@ -6,17 +6,16 @@ import jakarta.persistence.*;
 public class SLARequirement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; //
 
     @Column(unique = true, nullable = false)
-    private String requirementName;
+    private String requirementName; //
 
-    private String description;
-    private Integer maxDeliveryDays;
-    private Double minQualityScore;
-    private Boolean active = true;
+    private String description; //
+    private Integer maxDeliveryDays; //
+    private Double minQualityScore; //
+    private Boolean active = true; //
 
-    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getRequirementName() { return requirementName; }

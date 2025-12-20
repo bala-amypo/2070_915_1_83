@@ -9,22 +9,21 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class Vendor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; //
 
     @Column(unique = true, nullable = false)
-    private String name;
+    private String name; //
 
-    private String contactEmail;
-    private String contactPhone;
-    private Boolean active = true; // Default to true [cite: 52]
+    private String contactEmail; //
+    private String contactPhone; //
+    private Boolean active = true; //
 
     @CreationTimestamp
-    private Timestamp createdAt;
+    private Timestamp createdAt; //
 
     @UpdateTimestamp
-    private Timestamp updatedAt;
+    private Timestamp updatedAt; //
 
-    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getName() { return name; }
@@ -35,4 +34,8 @@ public class Vendor {
     public void setContactPhone(String contactPhone) { this.contactPhone = contactPhone; }
     public Boolean getActive() { return active; }
     public void setActive(Boolean active) { this.active = active; }
+    public Timestamp getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+    public Timestamp getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(Timestamp updatedAt) { this.updatedAt = updatedAt; }
 }

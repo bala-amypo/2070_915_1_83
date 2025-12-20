@@ -7,18 +7,14 @@ import jakarta.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //
+    private Long id; [cite_start]// [cite: 121]
 
     @Column(unique = true, nullable = false)
-    private String email; //
+    private String email; [cite_start]// [cite: 122, 125]
 
-    @Column(nullable = false)
-    private String password; //
+    private String password; [cite_start]// [cite: 123]
+    private String role; [cite_start]// [cite: 124, 126]
 
-    @Column(nullable = false)
-    private String role; //
-
-    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getEmail() { return email; }

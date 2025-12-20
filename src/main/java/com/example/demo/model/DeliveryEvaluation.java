@@ -7,23 +7,22 @@ import java.util.Date;
 public class DeliveryEvaluation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; [cite_start]// [cite: 73]
 
     @ManyToOne
     @JoinColumn(name = "vendor_id")
-    private Vendor vendor;
+    private Vendor vendor; [cite_start]// [cite: 74]
 
     @ManyToOne
-    @JoinColumn(name = "sla_id")
-    private SLARequirement slaRequirement;
+    @JoinColumn(name = "sla_requirement_id")
+    private SLARequirement slaRequirement; [cite_start]// [cite: 75]
 
-    private Integer actualDeliveryDays;
-    private Double qualityScore;
-    private Date evaluationDate;
-    private Boolean meetsDeliveryTarget;
-    private Boolean meetsQualityTarget;
+    private Integer actualDeliveryDays; [cite_start]// [cite: 76, 82]
+    private Double qualityScore; [cite_start]// [cite: 77, 83]
+    private Date evaluationDate; [cite_start]// [cite: 79]
+    private Boolean meetsDeliveryTarget; [cite_start]// [cite: 80, 84]
+    private Boolean meetsQualityTarget; [cite_start]// [cite: 81, 85]
 
-    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public Vendor getVendor() { return vendor; }
