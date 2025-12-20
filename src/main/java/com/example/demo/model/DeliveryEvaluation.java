@@ -2,17 +2,21 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.sql.Date;
 
 @Entity
 public class DeliveryEvaluation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
+    @JoinColumn(name = "vendor_id")
     private Vendor vendor;
+
     @ManyToOne
+    @JoinColumn(name = "sla_requirement_id")
     private SLARequirement slaRequirement;
+
     private Integer actualDeliveryDays;
     private Double qualityScore;
     private LocalDate evaluationDate;
@@ -29,11 +33,29 @@ public class DeliveryEvaluation {
         this.evaluationDate = evaluationDate;
     }
 
-    // Getters and Setters (Use LocalDate for evaluationDate to match tests)...
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
     public Vendor getVendor() { return vendor; }
+    public void setVendor(Vendor vendor) { this.vendor = vendor; }
+
     public SLARequirement getSlaRequirement() { return slaRequirement; }
+    public void setSlaRequirement(SLARequirement slaRequirement) { this.slaRequirement = slaRequirement; }
+
     public Integer getActualDeliveryDays() { return actualDeliveryDays; }
+    public void setActualDeliveryDays(Integer actualDeliveryDays) { this.actualDeliveryDays = actualDeliveryDays; }
+
     public Double getQualityScore() { return qualityScore; }
-    public void setMeetsDeliveryTarget(Boolean meets) { this.meetsDeliveryTarget = meets; }
-    public void setMeetsQualityTarget(Boolean meets) { this.meetsQualityTarget = meets; }
-}
+    public void setQualityScore(Double qualityScore) { this.qualityScore = qualityScore; }
+
+    public LocalDate getEvaluationDate() { return evaluationDate; }
+    public void setEvaluationDate(LocalDate evaluationDate) { this.evaluationDate = evaluationDate; }
+
+    // Explicit getters for Boolean fields to resolve compilation errors
+    public Boolean getMeetsDeliveryTarget() { return meetsDeliveryTarget; }
+    public void setMeetsDeliveryTarget(Boolean meetsDeliveryTarget) { this.meetsDeliveryTarget = meetsDeliveryTarget; }
+
+    public Boolean getMeetsQualityTarget() { return meetsQualityTarget; }
+    public void setMeetsQualityTarget(Boolean meetsQualityTarget) { this.meetsQualityTarget = meetsQualityTarget; }
+}  
