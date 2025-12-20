@@ -14,6 +14,7 @@ public class VendorPerformanceScoreServiceImpl implements VendorPerformanceScore
     private final VendorRepository vendorRepository;
     private final VendorTierRepository vendorTierRepository;
 
+    // Constructor injection for all 4 required repositories
     public VendorPerformanceScoreServiceImpl(
             VendorPerformanceScoreRepository vendorPerformanceScoreRepository,
             DeliveryEvaluationRepository deliveryEvaluationRepository,
@@ -35,7 +36,7 @@ public class VendorPerformanceScoreServiceImpl implements VendorPerformanceScore
             throw new IllegalArgumentException("No evaluations found");
         }
 
-        // Percentage calculations using explicit method references
+        // Logic for score calculation
         long onTimeCount = evaluations.stream()
                 .filter(e -> Boolean.TRUE.equals(e.getMeetsDeliveryTarget()))
                 .count();
@@ -43,15 +44,15 @@ public class VendorPerformanceScoreServiceImpl implements VendorPerformanceScore
                 .filter(e -> Boolean.TRUE.equals(e.getMeetsQualityTarget()))
                 .count();
 
-        double onTimePercentage = (double) onTimeCount / evaluations.size() * 100;
-        double qualityCompliancePercentage = (double) qualityCount / evaluations.size() * 100;
-        double overallScore = (onTimePercentage + qualityCompliancePercentage) / 2;
+        double onTimePerc = (double) onTimeCount / evaluations.size() * 100;
+        double qualityPerc = (double) qualityCount / evaluations.size() * 100;
+        double overall = (onTimePerc + qualityPerc) / 2;
 
         VendorPerformanceScore score = new VendorPerformanceScore();
         score.setVendor(vendor);
-        score.setOnTimePercentage(onTimePercentage);
-        score.setQualityCompliancePercentage(qualityCompliancePercentage);
-        score.setOverallScore(overallScore);
+        score.setOnTimePercentage(onTimePerc);
+        score.setQualityCompliancePercentage(qualityPerc);
+        score.setOverallScore(overall);
         score.setCalculatedAt(new Timestamp(System.currentTimeMillis()));
 
         return vendorPerformanceScoreRepository.save(score);
