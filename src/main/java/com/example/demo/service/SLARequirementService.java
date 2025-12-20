@@ -4,9 +4,8 @@ import com.example.demo.model.SLARequirement;
 import java.util.List;
 
 public interface SLARequirementService {
-    SLARequirement createRequirement(SLARequirement req);
-    SLARequirement updateRequirement(Long id, SLARequirement req);
-    SLARequirement getRequirementById(Long id);
-    List<SLARequirement> getAllRequirements();
-    void deactivateRequirement(Long id);
+    SLARequirement createRequirement(SLARequirement req); // [cite: 248]
+    SLARequirement getRequirementById(Long id); // [cite: 251]
+    List<SLARequirement> getAllRequirements(); // [cite: 253]
+    void deactivateRequirement(Long id); // [cite: 254]
 }
