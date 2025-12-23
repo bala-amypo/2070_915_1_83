@@ -13,6 +13,6 @@ public class OpenApiConfig {
                 .info(new Info()
                 .title("Vendor SLA Performance Tracker API")
                 .version("1.0")
-                .description("API documentation for the Vendor SLA Performance Tracker project"));
+                .description("API documentation for the Vendor SLA Performance Tracker project")); 
     }
 }
