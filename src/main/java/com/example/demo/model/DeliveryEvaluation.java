@@ -33,7 +33,6 @@ public class DeliveryEvaluation {
         this.evaluationDate = evaluationDate;
     }
 
-    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -52,7 +51,6 @@ public class DeliveryEvaluation {
     public LocalDate getEvaluationDate() { return evaluationDate; }
     public void setEvaluationDate(LocalDate evaluationDate) { this.evaluationDate = evaluationDate; }
 
-    // Explicit getters for Boolean fields to resolve compilation errors
     public Boolean getMeetsDeliveryTarget() { return meetsDeliveryTarget; }
     public void setMeetsDeliveryTarget(Boolean meetsDeliveryTarget) { this.meetsDeliveryTarget = meetsDeliveryTarget; }
 
