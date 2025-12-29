@@ -2,7 +2,7 @@ package com.example.demo.dto;
 
 public class AuthRequest {
     private String email; 
-        private String password; // [cite: 133]
+        private String password;
 
             
                 public String getEmail() { return email; }
