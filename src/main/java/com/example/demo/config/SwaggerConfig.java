@@ -17,12 +17,12 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
 
         return new OpenAPI()
-                // ✅ FORCE HTTPS SERVER (CRITICAL FIX)
+        
                 .servers(List.of(
                         new Server().url("https://9085.408procr.amypo.ai/")
                 ))
 
-                // ✅ JWT SECURITY
+               
                 .addSecurityItem(
                         new SecurityRequirement().addList("bearerAuth")
                 )
